@@ -1,0 +1,50 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# ufc.stats
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+ufc.stats is a data package containing historical data from UFC events. The data dates back to the very first fight in 1993 and is continously updated with data from new UFC events.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("mtoto/ufc.stats")
+```
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(ufc.stats)
+
+data("ufc_stats")
+str(ufc_stats)
+```
+
+Most strikes in UFC history?
+
+```{r dplyr}
+library(dplyr)
+ufc_stats %>% group_by(Fighter) %>%
+  summarise(total_strikes = sum(Significant_strikes_landed)) %>%
+  arrange(-total_strikes) %>%
+  head()
+```
+
