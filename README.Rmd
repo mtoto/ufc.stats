@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-ufc.stats is a data package containing historical data from UFC events. The data dates back to the very first fight in 1993 and is continously updated with data from new UFC events.
+This package contains UFC fight statistics, continously updated with data from latest fights.
 
 ## Installation
 
@@ -27,21 +27,15 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("mtoto/ufc.stats")
 ```
-## Example
+## Example usage
 
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-library(ufc.stats)
-
-data("ufc_stats")
-str(ufc_stats)
-```
-
-Most strikes in UFC history?
+Who has the most significant strikes landed in UFC history?
 
 ```{r dplyr}
+library(ufc.stats)
 library(dplyr)
+
+data("ufc_stats")
 ufc_stats %>% group_by(Fighter) %>%
   summarise(total_strikes = sum(Significant_strikes_landed)) %>%
   arrange(-total_strikes) %>%
