@@ -18,7 +18,4 @@ jobs:
         AWS_REGION: 'eu-west-3'   # optional: defaults to us-east-1
         DEST_DIR: 'data'
         DEST_FILE: 'ufc_stats.rda'
-    - name: Commit results
-        run: |
-          git commit data/ufc_stats.rda -m 'Commit fresh fight data'
-          git push https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git HEAD:master
+
