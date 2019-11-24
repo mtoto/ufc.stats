@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-*badges placeholder* <!-- badges: end -->
+*badges placeholde* <!-- badges: end -->
 
 This package contains UFC fight statistics, continously updated with
 data from latest events.
