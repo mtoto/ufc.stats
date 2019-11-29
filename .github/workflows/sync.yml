@@ -12,9 +12,9 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Run tests on data on s3
         run: Rscript -e 'install.packages(c("devtools","aws.s3","usethis"))' \
-          && Rscript -e 'b <- Sys.getenv("BUCKET")' \
-          && Rscript -e 'aws.s3::s3load(bucket = b, object = "ufc_stats.rda")' \
-          && Rscript -e 'usethis::use_data(ufc_stats, overwrite = TRUE)' -e 'devtools::test()'
+          ; 'b <- Sys.getenv("BUCKET")' \
+          ; 'aws.s3::s3load(bucket = b, object = "ufc_stats.rda")' \
+          ; 'usethis::use_data(ufc_stats, overwrite = TRUE)' -e 'devtools::test()'
         env:
           ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
