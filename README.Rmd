@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # ufc.stats
 
 <!-- badges: start -->
-[![Actions Status](https://github.com/{owner}/{repo}/workflows/{workflow_name}/badge.svg)](https://github.com/{owner}/{repo}/actions)
+[![Actions Status](https://github.com/mtoto/ufc.stats/workflows/sync/badge.svg)](https://github.com/mtoto/ufc.stats/actions)
 <!-- badges: end -->
 
 This package contains UFC fight statistics, continously updated with data from latest events. 

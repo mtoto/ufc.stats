@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Actions
-Status](https://github.com/%7Bowner%7D/%7Brepo%7D/workflows/%7Bworkflow_name%7D/badge.svg)](https://github.com/%7Bowner%7D/%7Brepo%7D/actions)
+Status](https://github.com/mtoto/ufc.stats/workflows/sync/badge.svg)](https://github.com/mtoto/ufc.stats/actions)
 <!-- badges: end -->
 
 This package contains UFC fight statistics, continously updated with
