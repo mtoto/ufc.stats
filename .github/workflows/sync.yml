@@ -1,7 +1,6 @@
 on:
-  push:
-    branches:
-    - master
+  schedule:
+    - cron:  '0 12 * * *'
 
 jobs:
 
@@ -10,8 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: r-lib/actions/setup-r@master
+      - name: Install R packages
+        run: Rscript -e 'install.packages(c("devtools","aws.s3","usethis"))'
       - name: Run tests on data on s3
-        run: Rscript -e 'install.packages(c("devtools","aws.s3","usethis"));aws.s3::s3load(bucket=Sys.getenv("BUCKET"),object="ufc_stats.rda");usethis::use_data(ufc_stats, overwrite = TRUE);devtools::test()'
+        run: Rscript -e 'aws.s3::s3load(bucket=Sys.getenv("BUCKET"),object="ufc_stats.rda");usethis::use_data(ufc_stats, overwrite = TRUE);devtools::check(error_on = "error")'
         env:
           ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
