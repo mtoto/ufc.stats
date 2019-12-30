@@ -1,20 +1,19 @@
 Package: ufc.stats
-Title: What the Package Does (One Line, Title Case)
+Title: The latest ufc statistics convenietly packaged as a tidy data.frame.
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Tamas",
            family = "Szilagyi",
            role = c("aut", "cre"),
-           email = "tszilagyi@outlookd.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "tszilagyi@outlook.com")
+Description: Make UFC fight data accessible to the R user.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/mtoto/ufc.stats
 BugReports: https://github.com/mtoto/ufc.stats/issues
-Suggests: 
-    testthat
-RoxygenNote: 6.1.1
+Imports: 
+    dplyr
+Suggests: testthat
+RoxygenNote: 7.0.2
 Depends: R (>= 3.1.0)
-

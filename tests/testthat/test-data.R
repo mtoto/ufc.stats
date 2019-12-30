@@ -1,3 +1,4 @@
+library(dplyr)
 context("data regression tests")
 options(tibble.print_min = 20)
 
