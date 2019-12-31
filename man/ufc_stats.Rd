@@ -9,7 +9,7 @@
 data(ufc_stats)
 }
 \description{
-Data UFC Fights from the very beginning to today.
+UFC fight statistics data from the very beginning to today.
 }
 \examples{
 data(ufc_stats)

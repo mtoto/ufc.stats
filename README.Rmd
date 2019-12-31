@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 ```
 # ufc.stats
 
-<!-- badges: start -->
-[![Actions Status](https://github.com/mtoto/ufc.stats/workflows/sync/badge.svg)](https://github.com/mtoto/ufc.stats/actions)
-<!-- badges: end -->
-
 This package contains UFC fight statistics, continously updated with data from latest events. 
 
 ## Installation
@@ -32,13 +28,13 @@ devtools::install_github("mtoto/ufc.stats")
 
 Who has the most significant strikes landed in UFC history?
 
-```{r dplyr}
+```{r dplyr, message=FALSE}
 library(ufc.stats)
 library(dplyr)
 
 data("ufc_stats")
-ufc_stats %>% group_by(Fighter) %>%
-  summarise(total_strikes = sum(Significant_strikes_landed)) %>%
+ufc_stats %>% group_by(fighter) %>%
+  summarise(total_strikes = sum(significant_strikes_landed)) %>%
   arrange(-total_strikes) %>%
   head()
 ```

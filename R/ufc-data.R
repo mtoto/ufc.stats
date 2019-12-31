@@ -1,6 +1,6 @@
 #' UFC Fight Statistics
 #'
-#' Data UFC Fights from the very beginning to today.
+#' UFC fight statistics data from the very beginning to today.
 #'
 #' @docType data
 #'

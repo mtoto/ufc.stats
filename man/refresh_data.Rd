@@ -2,7 +2,7 @@
 % Please edit documentation in R/refresh_data.R
 \name{refresh_data}
 \alias{refresh_data}
-\title{Retrieve the latest ufc_stats data.frame from GitHub. This function will also automatically overwrite the current rda contained in the package.}
+\title{Refresh ufc data with the latest fights}
 \usage{
 refresh_data()
 }
