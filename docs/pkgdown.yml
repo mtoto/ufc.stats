@@ -2,4 +2,7 @@ pandoc: 2.3.1
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles: []
+urls:
+  reference: http://ropensci.github.io/MODIStsp/reference
+  article: http://ropensci.github.io/MODIStsp/articles
 
