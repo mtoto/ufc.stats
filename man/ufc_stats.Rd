@@ -4,7 +4,7 @@
 \name{ufc_stats}
 \alias{ufc_stats}
 \title{UFC Fight Statistics}
-\format{An object of class \code{"cross"}; see \code{\link[qtl]{read.cross}}.}
+\format{An object of class \code{data.frame} with 25044 rows and 37 columns.}
 \usage{
 data(ufc_stats)
 }
@@ -15,6 +15,6 @@ UFC fight statistics data from the very beginning to today.
 data(ufc_stats)
 }
 \references{
-(\href{http://www.ufcstats.com/statistics/events/completed}{UFC Stats})
+http://www.ufcstats.com/statistics/events/completed
 }
 \keyword{datasets}

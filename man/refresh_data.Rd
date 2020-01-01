@@ -12,6 +12,3 @@ The latest version of ufc_stats data.frame.
 \description{
 Retrieve the latest ufc_stats data.frame from GitHub. This function will also automatically overwrite the current rda contained in the package.
 }
-\examples{
-refresh_data()
-}
