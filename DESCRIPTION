@@ -10,7 +10,7 @@ Description: Make UFC fight data accessible to the R user.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/mtoto/ufc.stats
+URL: http://tamaszilagyi.com/ufc.stats/, https://github.com/mtoto/ufc.stats
 BugReports: https://github.com/mtoto/ufc.stats/issues
 Imports: 
     dplyr
