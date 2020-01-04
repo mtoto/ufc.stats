@@ -20,8 +20,7 @@ Each row of `ufc_stats` represents the statistics of one fighter in a
 single round of a fight. The `data.frame` contains 37 variables in
 total. For full a description of each variable, please refer to the
 [Data
-Dictionary](http://tamaszilagyi.com/ufc.stats/docs/articles/data-dictionary.html)
-on the package’s website.
+Dictionary](http://tamaszilagyi.com/ufc.stats/articles/data-dictionary.html).
 
 ## Example usage
 

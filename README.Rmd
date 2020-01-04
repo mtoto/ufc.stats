@@ -26,7 +26,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 data("ufc_stats")
 ```
 
-Each row of `ufc_stats` represents the statistics of one fighter in a single round of a fight. The `data.frame` contains 37 variables in total. For full a description of each variable, please refer to the [Data Dictionary](http://tamaszilagyi.com/ufc.stats/docs/articles/data-dictionary.html) on the package's website.
+Each row of `ufc_stats` represents the statistics of one fighter in a single round of a fight. The `data.frame` contains 37 variables in total. For full a description of each variable, please refer to the [Data Dictionary](http://tamaszilagyi.com/ufc.stats/articles/data-dictionary.html).
 
 ## Example usage
 
