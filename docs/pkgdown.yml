@@ -1,8 +1,9 @@
 pandoc: 2.3.1
-pkgdown: 1.4.1
-pkgdown_sha: ~
-articles: []
+pkgdown: 1.4.1.9000
+pkgdown_sha: 03fa5022ff360a6f87586145e45f71fe090c64a2
+articles:
+  data-dictionary: data-dictionary.html
 urls:
-  reference: http://ropensci.github.io/MODIStsp/reference
-  article: http://ropensci.github.io/MODIStsp/articles
+  reference: http://tamaszilagyi.com/ufc.stats//reference
+  article: http://tamaszilagyi.com/ufc.stats//articles
 

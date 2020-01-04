@@ -46,8 +46,7 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown","devtools"))' \
-                     -e 'devtools::install_github("mtoto/ufc.stats")'
+        run: Rscript -e 'install.packages(c("rmarkdown","devtools"))'
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
       - name: Commit results

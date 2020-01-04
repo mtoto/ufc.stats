@@ -1,0 +1,40 @@
+---
+title: "Data Dictionary"
+output: 
+  html_document:
+    theme: simplex
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Reference
+
+```{r dict, echo=FALSE, message=FALSE, warning=FALSE, results = "asis"}
+library(knitr)
+library(dplyr)
+library(kableExtra)
+library(ufc.stats)
+
+data("ufc_stats")
+df<-data.frame(variable  = names(ufc_stats),
+           description = c("Name of the Fighter", "Number of times the opponent hits the ground as a result of a hit or kick",
+                           "All strikes landed at a distance and power strikes in the clinch and on the ground", "Same as previous but attempted", "Rate of landed vs attempted","Signficant strikes plus small, short strikes in the clinch and on the ground","Same as previous but attempted","Number of times bringing the opponenet to the ground with attacker on top","Same as previous but attempted","Rate of landed vs attempted","Attempt to tap out the opponent","Passing the guard, eg. improving to a more dominant position on the ground","Fighter moves from an inferior to a superior position","Stike or kick landed on opponent's head","Same as previous but attempted","Stike or kick landed on opponent's body","Same as previous but attempted","Leg kick landed","Same as previous but attempted","Stike or kick landed from a distance","Same as previous but attempted","Stike or kick landed in a clinch","Same as previous but attempted","Stike landed on the ground","Same as previous but attempted","Current round","End result","Last round of the fight","Fighttime in the last round","Scheduled rounds of the fight","Winner (W) or Loser(L)", "Weight class of the fight", "UFC event title","Date of the UFC event", "Location of UFC event", "Number at the gate", "Run-length id of the fights"))
+df %>%
+  mutate(variable = cell_spec(
+    variable, color = "white", bold = T,
+    background = spec_color(c(1,rep(2,6),rep(3,6),rep(4,12),rep(5,12)), end = 0.9, direction = -1),
+    ),
+       description = cell_spec(
+     description, color = "black",align = "l"
+    )) %>%
+  kable(format="html",escape = FALSE, align = "l") %>% 
+  kable_styling()
+```

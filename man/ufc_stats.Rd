@@ -3,7 +3,7 @@
 \docType{data}
 \name{ufc_stats}
 \alias{ufc_stats}
-\title{UFC Fight Statistics}
+\title{data.frame containing UFC fight Statistics}
 \format{An object of class \code{data.frame} with 25044 rows and 37 columns.}
 \usage{
 data(ufc_stats)

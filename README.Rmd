@@ -11,37 +11,33 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+devtools::install_github("mtoto/ufc.stats")
 ```
 # ufc.stats
 
 This package contains UFC fight statistics, continously updated with data from latest events. 
 
-## Installation
+## Installation 
 
 You can install the development version from [GitHub](https://github.com/) with:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("mtoto/ufc.stats")
+``` {r}
+# devtools::install_github("mtoto/ufc.stats")
+data("ufc_stats")
 ```
+
+Each row of `ufc_stats` represents the statistics of one fighter in a single round of a fight. The `data.frame` contains 37 variables in total. For full a description of each variable, please refer to the [Data Dictionary](http://tamaszilagyi.com/ufc.stats/docs/articles/data-dictionary.html) on the package's website.
+
 ## Example usage
 
 Who has the most significant strikes landed in UFC history?
 
 ```{r dplyr, message=FALSE}
-library(ufc.stats)
 library(dplyr)
 
-data("ufc_stats")
 ufc_stats %>% group_by(fighter) %>%
-  summarise(total_strikes = sum(significant_strikes_landed)) %>%
-  arrange(-total_strikes) %>%
+  summarise(total_significant_strikes = sum(significant_strikes_landed)) %>%
+  arrange(-total_significant_strikes) %>%
   head()
-```
-
-Each row represents the statistics of a fighter in a single round. Overall, the dataset consits of 36 variables:
-
-```{r}
-str(ufc_stats)
 ```
 
