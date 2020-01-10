@@ -11,6 +11,9 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+options(crayon.enabled = FALSE)
+options(crayon.colors = 1)
+crayon::num_colors(forget = TRUE)
 devtools::install_github("mtoto/ufc.stats")
 ```
 # ufc.stats
