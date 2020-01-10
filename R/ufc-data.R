@@ -1,4 +1,4 @@
-#' data.frame containing UFC fight Statistics
+#' data.frame containing UFC fight stats
 #'
 #' UFC fight statistics data from the very beginning to today.
 #'

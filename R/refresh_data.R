@@ -1,4 +1,4 @@
-#' Refresh ufc data with the latest fights
+#' Refresh UFC data with the latest fights
 #' @description
 #' Retrieve the latest ufc_stats data.frame from GitHub. This function will also automatically overwrite the current rda contained in the package.
 #' @export
