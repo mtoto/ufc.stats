@@ -41,5 +41,5 @@ ufc_stats %>% group_by(fighter) %>%
 #> 3 Michael Bisping                         1567
 #> 4 Donald Cerrone                          1535
 #> 5 Joanna Jedrzejczyk                      1525
-#> 6 Rafael Dos Anjos                        1387
+#> 6 Rafael Dos Anjos                        1401
 ```
