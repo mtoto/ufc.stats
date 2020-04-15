@@ -55,10 +55,7 @@ However, MMA statistics still haven't been as extensively studied as other sport
 
 ### About this dataset
 
-The data.frame contained in this package `ufc_stats` is in essence the same as the fight statistics available on http://www.ufcstats.com/, albeit organized as a tidy data.frame. The UFC's system for recording fight level data is based on the now bought (?) FightMetric sytem.
-
-Each row of `ufc_stats` represents the statistics of one fighter in a single round of a fight. The data.frame contains 37 variables in total. For full a description of each variable, please refer to the [Data Dictionary](http://tamaszilagyi.com/ufc.stats/articles/data-dictionary.html).
-
+The data.frame contained in this package `ufc_stats` is in essence the same as the fight statistics available on http://www.ufcstats.com/, albeit organized as a tidy data.frame. The UFC's system for recording fight level data is based on the original FightMetric sytem. Each row of `ufc_stats` represents the statistics of one fighter in a single round of a fight. The data.frame contains 37 variables in total. For full a description of each variable, please refer to the [Data Dictionary](http://tamaszilagyi.com/ufc.stats/articles/data-dictionary.html).
 
 ## The anatomy of striking data
 
@@ -70,7 +67,7 @@ Strikes are recorded along three axes:
 2. **Target**: Head, body or legs
 3. **Power**: How hard is the hit 
 
-![](/users/tamas/Documents/personal/git/ufc.stats/vignettes/striking.png)
+![](https://raw.githubusercontent.com/mtoto/ufc.stats/master/vignettes/striking.png)
 [^1]
 
 Contrary to what many may think, significant strikes are not synonimous with power strikes. In a standup fight, jabs and short leg kicks count just as well toward its count. Or to flip it around: all punches and kicks are significant strikes except short strikes in the clinch or on the ground. 
