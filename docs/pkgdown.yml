@@ -2,6 +2,7 @@ pandoc: 2.3.1
 pkgdown: 1.4.1.9000
 pkgdown_sha: 03fa5022ff360a6f87586145e45f71fe090c64a2
 articles:
+  2020-04-15-striking: 2020-04-15-striking.html
   data-dictionary: data-dictionary.html
 urls:
   reference: http://tamaszilagyi.com/ufc.stats//reference

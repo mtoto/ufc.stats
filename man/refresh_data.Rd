@@ -2,7 +2,7 @@
 % Please edit documentation in R/refresh_data.R
 \name{refresh_data}
 \alias{refresh_data}
-\title{Refresh ufc data with the latest fights}
+\title{Refresh UFC data with the latest fights}
 \usage{
 refresh_data()
 }

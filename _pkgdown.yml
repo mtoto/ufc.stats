@@ -12,6 +12,6 @@ navbar:
         href: articles/data-dictionary.html
       - text: '---'
       - text: 'Blog'
-      - text: "Introduction to UFC Stats"
-        href: articles/intro-ufc-stats.html
+      - text: "Understanding striking performance"
+        href: articles/2020-04-15-striking.html
 

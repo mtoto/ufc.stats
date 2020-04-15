@@ -17,7 +17,11 @@ Imports:
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
-RoxygenNote: 7.0.2
+    rmarkdown,
+    ggalt,
+    Hmisc,
+    forcats,
+    plotly
+RoxygenNote: 7.1.0
 Depends: R (>= 3.1.0)
 VignetteBuilder: knitr

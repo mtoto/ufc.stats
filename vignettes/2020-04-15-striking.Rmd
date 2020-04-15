@@ -1,0 +1,294 @@
+---
+title: "Understanding striking performance"
+author: "Tamas Szilagyi"
+date: "15/4/2020"
+output: 
+  html_document:
+    theme: simplex
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#",
+  echo=FALSE,
+  warning=FALSE,
+  message=FALSE
+)
+```
+
+## A brief history of the Ultimate Fighter
+
+The first UFC event was held over a quarter century ago on November 12th 1993 in Denver, CO. The concept was to pit different martial arts and fighting styles against each other to see which one is truly superior. The event was the brainchild of Rorion Gracie, member of the legendary Brazilian jiu-jitsu (BJJ) family. In the late eighties and early nineties Rorion produced and appeared on several VHS tapes demonstrating the power of jiu jitsu over judo, karate, sambo and other martial arts. Why not make a live event out of it, he figured.
+
+Rorion believed that no martial art was more effective than BJJ, and no martial artist more lethal than a Gracie. The first event proved his point, when his brother Royce Gracie defeated Gerard Gordeau with a rear naked choke and won UFC 1. Only meant to be a one-time spectacle, the televised event was deemed popular enough to be followed up with a next event. Fast forward to 2020, and UFC is broadcasted on ESPN practically every weekend. 
+
+```{r}
+library(ufc.stats)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+data(ufc_stats)
+
+ufc_stats %>% 
+  group_by(fight_year = year(fight_date)) %>%
+  summarise(total_fights = n_distinct(id)) %>%
+  ggplot(aes(fight_year, total_fights, fill = fight_year)) +
+    geom_bar(stat = "identity") +
+    labs(title =  "From a few dozen to half a thousand UFC fights a year",
+         subtitle = "Number of fights grows expononentially from mid 2000's",
+         y = "number of bouts",
+         x = "year") +
+    theme_light()  +
+    theme(legend.position="none")
+```
+
+What makes mixed martial arts fascinating is its unpredictality. There is no blueprint for success in the octagon. A karate fighter can headkick a judoka to sleep, a thai boxer's leg kicks can ruin the explosive movement of a wrestler, or similarly an aggressive grappler can wear down a KO specialist. You need to be skilled at every aspect of fighting in order to be able to survive at the nosebleeds of the sports. 
+
+However, MMA statistics still haven't been as extensively studied as other sports, even though the data itself is quite interesting and unlike what traditional sport analytics is occupied with. The [ufc.stats](https://github.com/mtoto/ufc.stats) package intends to help fill this void and make up-to-date UFC fight statistics available to the R community. My hope is that this package will inspire R users and UFC fans alike to push MMA analytics forward.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">It’s 2020 &amp; It’s time for improvement <br>-Better MMA gloves<br>-MMA based scoring system <br>-More weight classes <br>-More stats &amp; analytics <br>This sport can still improve <a href="https://twitter.com/hashtag/KillerCub2020?src=hash&amp;ref_src=twsrc%5Etfw">#KillerCub2020</a></p>&mdash; Cub Swanson (@CubSwanson) <a href="https://twitter.com/CubSwanson/status/1217150792844509185?ref_src=twsrc%5Etfw">January 14, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+### About this dataset
+
+The data.frame contained in this package `ufc_stats` is in essence the same as the fight statistics available on http://www.ufcstats.com/, albeit organized as a tidy data.frame. The UFC's system for recording fight level data is based on the now bought (?) FightMetric sytem.
+
+Each row of `ufc_stats` represents the statistics of one fighter in a single round of a fight. The data.frame contains 37 variables in total. For full a description of each variable, please refer to the [Data Dictionary](http://tamaszilagyi.com/ufc.stats/articles/data-dictionary.html).
+
+
+## The anatomy of striking data
+
+All fights start with the fighters on their feet. Standup fights are characterized by *strikes*, a catch-all term for punches, kicks and elbows. The FightMetric system that underlies UFC's data model distingusihes between total versus significant strikes, a difference that can seem confusing at first. 
+
+Strikes are recorded along three axes: 
+
+1. **Position**: standing up, in the clinch against the fence or on the ground.
+2. **Target**: Head, body or legs
+3. **Power**: How hard is the hit 
+
+![](/users/tamas/Documents/personal/git/ufc.stats/vignettes/striking.png)
+[^1]
+
+Contrary to what many may think, significant strikes are not synonimous with power strikes. In a standup fight, jabs and short leg kicks count just as well toward its count. Or to flip it around: all punches and kicks are significant strikes except short strikes in the clinch or on the ground. 
+
+One of the most common ways to evaluate a fighter is (significant) striking accuracy. This statistic is included on a per round basis in this dataset. Let's take a quick glance at the the distribution of overall striking accuracy, before we start coming up with our own striking metrics. 
+
+```{r}
+# fighters that have been in 5 fights at least
+fighters_five <- ufc_stats %>% 
+  group_by(fighter) %>%
+  summarise(fights = n_distinct(id),
+            strikes_attempted = sum(significant_strikes_attempted)) %>%
+  ungroup() %>%
+  filter(fights > 4 & strikes_attempted > 100)
+fighters_five <- fighters_five$fighter
+
+ufc_stats %>% filter(fighter %in% fighters_five) %>%
+  group_by(fighter) %>%
+  summarise(total_significant_strikes_attempted = sum(significant_strikes_attempted),
+            total_significant_strikes_landed = sum(significant_strikes_landed)) %>%
+  mutate(significant_strikes_rate = total_significant_strikes_landed / total_significant_strikes_attempted,
+         Fighters = factor(ifelse(significant_strikes_rate>0.7,fighter,"*The rest*"))) %>%
+  ggplot(aes(significant_strikes_rate, fill = Fighters)) +
+  geom_histogram(bins = 50) +
+  theme_light() +
+  scale_fill_brewer(palette="Set2") +
+  labs(title =  "The distribution of significant overall striking accuracy of all UFC fighters",
+         subtitle = "Only a few Heavyweights make it past 70% striking accuracy",
+         y = "Number of Fighters",
+         x = "Significant Striking Accuracy")
+```
+
+Striking accuracy resembles a normal distribution with the average fighter landing around 40% of their punches. With only heavyweights in the top spots for this metric, one starts to wonder whether it would make more sense to compare fighters to their peers in the same weight class instead. 
+
+```{r}
+# cleanup weight class col
+ufc_stats <- ufc_stats %>% mutate(weight_class_std = factor(case_when(
+  str_detect(weight_class, "Welterweight") ~ "Welterweight",
+  str_detect(weight_class, "Bantamweight") ~ "Bantamweight",
+  str_detect(weight_class, "Light Heavyweight") ~ "Light Heavyweight",
+  str_detect(weight_class, "Heavyweight") ~ "Heavyweight",
+  str_detect(weight_class, "Lightweight") ~ "Lightweight",
+  str_detect(weight_class, "Flyweight") ~ "Flyweight",
+  str_detect(weight_class, "Featherweight") ~ "Featherweight",
+  str_detect(weight_class, "Middleweight") ~ "Middleweight",
+  str_detect(weight_class, "Strawweight") ~ "Strawweight"
+), levels = c("Strawweight","Flyweight", "Bantamweight","Featherweight",
+              "Lightweight", "Welterweight", "Middleweight", "Light Heavyweight",
+              "Heavyweight")),
+  gender = factor(ifelse(str_detect(tolower(weight_class), "women"),"Women","Men")))
+
+dom_class <- ufc_stats %>% group_by(fighter) %>%
+  count(weight_class_std) %>% top_n(1) %>%
+  ungroup() %>%
+  rename(dominant_class = weight_class_std)
+
+ufc_stats %>%inner_join(dom_class, on = "fighter")  %>%
+  group_by(fighter, dominant_class) %>%
+  filter(weight_class_std == dominant_class) %>%
+  summarise(total_significant_strikes_attempted = sum(significant_strikes_attempted),
+            total_significant_strikes_landed = sum(significant_strikes_landed)) %>%
+  mutate(significant_strikes_rate = total_significant_strikes_landed / total_significant_strikes_attempted) %>%
+  filter(total_significant_strikes_attempted > 20) %>%
+  ggplot(aes(significant_strikes_rate, fill = dominant_class)) +
+  geom_histogram() +
+  theme_light() +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette="Paired") +
+  facet_wrap(~dominant_class, nrow = 2) +
+  labs(title =  "The distribution of significant overall striking accuracy per weight class",
+         subtitle = "As we move up in weight, the distribution starts shifting to the right",
+         y = "Number of Fighters",
+         x = "Significant Striking Accuracy")
+```
+
+Heavyer fighters tend to have a lower pace and less agility than the lighter fighters, which might contribute to the slight shift to the right in striking accuracy when moving up in weight. 
+
+## Exceeding expected significant strikes
+
+One way to deal with differences between weight divisions is to to compare the strikes a fighter lands to the amount that is expected. First we calculate the average accuracy for each weight class. Then we multiply this by the number of strikes attemptted on a fight-, or fighter-basis, and voila. This number is in essence the number significant strikes that would have landed, were they attempted by an average fighter of the respective weight class. What this allows us to do, is to see which fighters exceed or deceed expected strikes, placing them above or below the weight division average.
+
+We can further break the calculationdown into either positional (distance, clinch or ground) or target based (head, body or leg) averages, and multiply them by the matching attempts, to get a more accurate estimate of expected strikes. We can visualize the correlation between the two by plotting the expected versus the actual strikes landed by each fighter. 
+
+```{r}
+ufc_stats <- ufc_stats %>% 
+  mutate(insignificant_strikes_landed = total_strikes_landed - significant_strikes_landed,
+         insignificant_strikes_attempted = total_strikes_attempted - significant_strikes_attempted,
+         KO = ifelse(winner=="W" & result == "KO/TKO", 1,0)) 
+
+
+
+fighters_five <- ufc_stats %>% 
+  # filter(fight_date > "2015-01-01") %>%
+  group_by(fighter,weight_class_std) %>%
+  summarise(fights = n_distinct(id),
+            strikes_attempted = sum(significant_strikes_attempted)) %>%
+  ungroup() %>%
+  filter(fights > 5 & strikes_attempted > 200)
+fighters_five <- fighters_five$fighter
+```
+
+
+
+```{r}
+fights <- ufc_stats %>% group_by(id,fight_date) %>%
+  distinct(fighter) %>%
+  summarise(fight=paste(fighter, collapse=' vs. ')) %>%
+  summarise(fight=paste(fight,fight_date,collapse=' '))
+
+ufc_2015_position <- ufc_stats %>% filter(fighter %in% fighters_five &
+                     fight_date > "2001-01-01") %>%
+  group_by(weight_class_std, gender) %>%
+  summarise(weight_class_clinch_accuracy = sum(clinch_landed) / sum(clinch_attempted),
+            weight_class_distance_accuracy = sum(distance_landed) / sum(distance_attempted),
+            weight_class_ground_accuracy = sum(ground_landed )/ sum(ground_attempted),
+            weight_class_head_accuracy = sum(head_landed) / sum(head_attempted),
+            weight_class_body_accuracy = sum(body_landed) / sum(body_attempted),
+            weight_class_leg_accuracy = sum(leg_landed )/ sum(leg_attempted),
+            weight_class_significant_strike_accuracy = sum(significant_strikes_landed)/ sum(significant_strikes_attempted),
+            weight_class_insignificant_strike_accuracy = sum(insignificant_strikes_landed)/ sum(insignificant_strikes_attempted))
+
+per_fight_stats <- ufc_stats %>% filter(fighter %in% fighters_five ) %>%  # & fight_date > "2015-01-01"
+  group_by(fighter, id, weight_class_std, gender) %>%
+  summarise_at(c("clinch_landed", "clinch_attempted", "distance_landed","distance_attempted","ground_landed","ground_attempted",
+                 "significant_strikes_landed", "significant_strikes_attempted", "head_landed","head_attempted","body_landed",
+                 "body_attempted","leg_landed","leg_attempted","insignificant_strikes_landed", "insignificant_strikes_attempted","knockdowns","KO"),sum) %>%
+  left_join(ufc_2015_position, by = c("weight_class_std","gender")) %>%
+  mutate(expected_sig_strikes = significant_strikes_attempted * weight_class_significant_strike_accuracy,
+         expected_sig_strikes_target = ((head_attempted * weight_class_head_accuracy) + (body_attempted * weight_class_body_accuracy) + (ground_attempted * weight_class_leg_accuracy)),
+         expected_sig_strikes_positional = ((clinch_attempted * weight_class_clinch_accuracy) + (distance_attempted * weight_class_distance_accuracy) + (ground_attempted * weight_class_ground_accuracy)),
+         expected_sig_strikes_composite = (((head_attempted * weight_class_head_accuracy) + (body_attempted * weight_class_body_accuracy) + (ground_attempted * weight_class_leg_accuracy)) + ((clinch_attempted * weight_class_clinch_accuracy) + (distance_attempted * weight_class_distance_accuracy) + (ground_attempted * weight_class_ground_accuracy)))/2,
+        expected_insig_strikes = insignificant_strikes_attempted * weight_class_insignificant_strike_accuracy,
+        inflated_significant_strikes_landed = significant_strikes_landed + 5*KO + 2*knockdowns
+) %>% ungroup %>% mutate(positional_striking_efficiency = significant_strikes_landed / expected_sig_strikes_positional) 
+
+```
+
+```{r}
+library(tidyr)
+library(plotly)
+melted <- per_fight_stats %>% pivot_longer(expected_sig_strikes:expected_sig_strikes_positional, 
+                                           names_to = "type", values_to = "expected_strikes") %>%
+  left_join(fights, on = "id") %>%
+  mutate(label = paste("(",fighter,")",fight))
+
+melted$type = factor(melted$type, levels=c('expected_sig_strikes','expected_sig_strikes_target','expected_sig_strikes_positional'))
+
+p<-ggplot(melted, aes(expected_strikes, significant_strikes_landed, label = label)) + 
+  geom_point(aes(color = weight_class_std)) +
+  geom_smooth() +
+  facet_grid(cols=vars(type)) +
+  theme_light() +
+  theme(legend.position = "none") +
+  labs(title =  "Actual sigificant strikes landed vs expected on a fight by fight bases",
+         subtitle = "Positinal expected strikes ",
+         y = "Significant Strikes Landed",
+         x = "Expected Strikes") +
+  scale_fill_brewer(palette="Paired")
+
+ggplotly(p)
+# jon jones fight hevyweight??
+```
+
+Plotting the three different flavours of expected sigfnificant strikes, the positional version seems best, as it over- or under-estimates the number of significant strikes the least out the three. 
+
+## Striking efficiency and beyond
+
+Quantifying by how much a fighter under- or overperforms the expected strikes per fight means we can rank fighters irrespective of weight division. This type of metric is often called efficiency in other sports, and an efficiency score of 1.1 would indicate in this case that a fighter outstrikes expectactions by 10% on average. We can also add a confidence interval around the efficiency scores per fight to see how fighters performed faired their UFC careers, and plot them in descending order with some constraints on said interval to exclude inconsistent fighters.
+
+```{r}
+library(ggalt)
+library(forcats)
+
+fighter_eff <- per_fight_stats %>% 
+  group_by(fighter) %>% 
+  summarise(ci = list(mean_cl_normal(positional_striking_efficiency) %>% 
+                        rename(average_efficiency=y, lwr=ymin, upr=ymax))) %>% 
+  unnest(cols=c(ci)) %>%
+  mutate(upr = as.numeric(upr), lwr = as.numeric(lwr)) %>%
+  arrange(desc(average_efficiency)) %>% 
+  filter(lwr > 1.05 &
+        (upr-lwr) < .38)
+
+fighter_eff$fighter <- factor(fighter_eff$fighter, levels=as.character(fighter_eff$fighter))
+fighter_eff$fighter<-fct_reorder(fighter_eff$fighter,fighter_eff$average_efficiency, .desc=F)
+
+  ggplot(fighter_eff, aes(x=lwr, 
+                         xend=upr, 
+                         y=fighter, 
+                         yend=fighter)) + 
+    geom_segment(aes(x=lwr, 
+                         xend=upr, 
+                         y=fighter, 
+                         yend=fighter), 
+                     color="#b2b2b2", size=1.5) +
+    geom_dumbbell(color="light blue", 
+                      size_x=3.5, 
+                      size_xend = 3.5,
+                      #Note: there is no US:'color' for UK:'colour' 
+                      # in geom_dumbbel unlike standard geoms in ggplot()
+                      colour_x="darkred", 
+                      colour_xend = "darkgreen")+
+        labs(x=NULL, y=NULL, 
+             title="Most efficient consistent fighters of all times", 
+             subtitle="The narrower the confidence interval, the more consistent the fighter")+
+        geom_text(color="black", size=2, hjust=-0.5,
+                  aes(x=round(lwr,3), label=round(lwr,3)))+
+        geom_text(aes(x=round(upr,3), label=round(upr,3)), 
+                  color="black", size=2, hjust=1.5) + 
+    geom_point(aes(y=fighter, x=average_efficiency), alpha = .5) +
+    theme_light() +
+    scale_fill_brewer(palette="Set2")
+        
+```
+
+What's cool about this plot is that besides ranking fighters according to their average efficiency, we als get a measure of how consistently the fighter has performed. Looking at the plot from both angles, Anderson Silva's numbers immeadiately jump out. Not only is the 4th most efficient striker of all times, in his prime 95% of fights would likely finish with him having achieved over 1.22 efficency. This is incredible. What's also telling is that the top spots are all filled by currently active fighters, a sure sigh that there has never been a better time for Mixed Martian Arts. The UFC roster is packed with talent as far as the I can see right now.
+
+It is also important to note however, that this metric is by no means perfect or captures striking ability to its fullest. For one, most knockout artists will have a hard time delivering good numbers for this metric. Their strength is in power, not always accuracy. Similarly, you can be the most efficient striker in the world, if you get caught with the perfect shot your hard earned fight stats won't be worth a penny. And this is the beauty of the fight game, anything can happen to anyone at any time. 
+
+
+[^1]: Chart inspired by plot in the Fightnomics book.
