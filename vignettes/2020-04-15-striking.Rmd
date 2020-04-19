@@ -44,7 +44,7 @@ ufc_stats %>%
         theme(legend.position="none")
 ```
 
-What makes mixed martial arts fascinating is its unpredictality. There is no blueprint for success in the octagon. A karate fighter can headkick a judoka to sleep, a thai boxer's leg kicks can ruin the explosive movement of a wrestler, or similarly an aggressive grappler can wear down a KO specialist. You need to be skilled at every aspect of fighting in order to be able to survive at the nosebleeds of the sports. 
+What makes mixed martial arts fascinating is its unpredictality. There is no blueprint for success in the octagon. A karate fighter can headkick a judoka to sleep, a thai boxer's leg kicks can ruin the explosive movement of a wrestler, or similarly an aggressive grappler can wear down a KO specialist. You need to be skilled at every aspect of fighting in order to be able to survive at the nosebleeds of the sport. 
 
 However, MMA statistics still haven't been as extensively studied as other sports, even though the data itself is quite interesting and unlike what traditional sport analytics is occupied with. The [ufc.stats](https://github.com/mtoto/ufc.stats) package intends to help fill this void and make up-to-date UFC fight statistics available to the R community. My hope is that this package will inspire R users and UFC fans alike to push MMA analytics forward.
 
@@ -269,7 +269,7 @@ ggplot(fighter_eff, aes(x=lwr,
         scale_fill_brewer(palette="Set2")
 ```
 
-What's cool about this plot is that besides ranking fighters according to their average efficiency, we also get a measure of how consistently the fighter has performed. Looking at the plot from both angles, Anderson Silva's numbers immediately jump out. Not only is he the 4th most efficient striker of all times, in his prime 95% of fights would likely finish with him having achieved over 1.22 efficiency. This is incredible. What's also telling is that the top spots are all filled by currently active fighters, a sure sign that there has never been a better time for Mixed Martian Arts. The UFC roster is packed with talent right now as far as the I can see.
+What's cool about this plot is that besides ranking fighters according to their average efficiency, we also get a measure of how consistently the fighter has performed. Looking at the plot from both angles, Anderson Silva's numbers immediately jump out. Not only is he the 4th most efficient striker of all times, in his prime 95% of fights would likely finish with him having achieved over 1.22 efficiency. This is incredible. What's also telling is that a lot of the top spots are filled by currently active fighters, a sure sign that there has never been a better time for Mixed Martian Arts. The UFC roster is packed with talent right now as far as the I can see.
 
 It is important to note that this metric is by no means perfect or captures striking ability to its fullest. For one, most knockout artists will have a hard time delivering good numbers for this metric. Their strength is in power, not always accuracy. Similarly, you can be the most efficient striker in the world, if you get caught with the perfect shot, your hard earned fight stats won't be worth a dime. And this is the beauty of the fight game, anything can happen to anyone at any time. 
 
