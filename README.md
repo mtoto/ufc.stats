@@ -33,13 +33,6 @@ ufc_stats %>% group_by(fighter) %>%
   summarise(total_significant_strikes = sum(significant_strikes_landed)) %>%
   arrange(-total_significant_strikes) %>%
   head()
-#> Warning: `...` is not empty.
-#> 
-#> We detected these problematic arguments:
-#> * `needs_dots`
-#> 
-#> These dots only exist to allow future extensions and should be empty.
-#> Did you misspecify an argument?
 #> # A tibble: 6 x 2
 #>   fighter            total_significant_strikes
 #>   <chr>                                  <int>
