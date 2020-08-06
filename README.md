@@ -36,7 +36,7 @@ ufc_stats %>% group_by(fighter) %>%
 #> # A tibble: 6 x 2
 #>   fighter            total_significant_strikes
 #>   <chr>                                  <int>
-#> 1 Max Holloway                            2071
+#> 1 Max Holloway                            2173
 #> 2 Joanna Jedrzejczyk                      1711
 #> 3 Donald Cerrone                          1597
 #> 4 Frankie Edgar                           1568
