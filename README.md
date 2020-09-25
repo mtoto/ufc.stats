@@ -38,8 +38,8 @@ ufc_stats %>% group_by(fighter) %>%
 #>   <chr>                                  <int>
 #> 1 Max Holloway                            2173
 #> 2 Joanna Jedrzejczyk                      1711
-#> 3 Frankie Edgar                           1703
-#> 4 Donald Cerrone                          1597
+#> 3 Donald Cerrone                          1710
+#> 4 Frankie Edgar                           1703
 #> 5 Michael Bisping                         1567
 #> 6 Jon Jones                               1463
 ```
