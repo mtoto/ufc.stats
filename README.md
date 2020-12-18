@@ -41,5 +41,5 @@ ufc_stats %>% group_by(fighter) %>%
 #> 3 Donald Cerrone                          1710
 #> 4 Frankie Edgar                           1703
 #> 5 Michael Bisping                         1567
-#> 6 Jon Jones                               1463
+#> 6 Rafael Dos Anjos                        1493
 ```
