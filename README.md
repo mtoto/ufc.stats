@@ -36,10 +36,10 @@ ufc_stats %>% group_by(fighter) %>%
 #> # A tibble: 6 x 2
 #>   fighter            total_significant_strikes
 #>   <chr>                                  <int>
-#> 1 Max Holloway                            2071
+#> 1 Max Holloway                            2618
 #> 2 Joanna Jedrzejczyk                      1711
-#> 3 Frankie Edgar                           1568
-#> 4 Michael Bisping                         1567
-#> 5 Donald Cerrone                          1535
-#> 6 Jon Jones                               1463
+#> 3 Donald Cerrone                          1710
+#> 4 Frankie Edgar                           1705
+#> 5 Michael Bisping                         1567
+#> 6 Rafael Dos Anjos                        1493
 ```
