@@ -44,3 +44,6 @@ ufc_stats %>% group_by(fighter) %>%
   head()
 ```
 
+## Updating with latest fights
+
+The package contains a single function `refresh_data()` that updates the dataset contained within the package. Running `data("ufc_stats")` subsequently, the latest version of the data.frame is loaded into memory.

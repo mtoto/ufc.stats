@@ -5,7 +5,7 @@
 \alias{ufc_stats}
 \title{data.frame containing UFC fight stats}
 \format{
-An object of class \code{data.frame} with 27222 rows and 36 columns.
+An object of class \code{data.frame} with 27668 rows and 36 columns.
 }
 \usage{
 data(ufc_stats)

@@ -1,12 +1,16 @@
 #' Refresh UFC data with the latest fights
 #' @description
-#' Retrieve the latest ufc_stats data.frame from GitHub. This function will also automatically overwrite the current rda contained in the package.
+#' This function updates the rda file contained in the package folder data/ufc_stats.rda.
 #' @export
 #' @return The latest version of ufc_stats data.frame.
+#' @examples
+#' refresh_data()
+#' # now what we load into memory is the latest dataset
+#' data("ufc_stats)
 
 refresh_data <- function() {
-  ufc_data <- url("https://raw.github.com/mtoto/ufc.stats/master/data/ufc_stats.rda")
-  load(ufc_data)
+  load(url("https://s3-us-west-1.amazonaws.com/ufc.stats/final/ufc_stats.rda"))
   save(ufc_stats, file="data/ufc_stats.rda")
-  data("ufc_stats")
 }
+
+

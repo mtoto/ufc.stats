@@ -28,6 +28,7 @@ Who has the most significant strikes landed in UFC history?
 
 ``` r
 library(dplyr)
+#> Warning: package 'dplyr' was built under R version 3.6.2
 
 ufc_stats %>% group_by(fighter) %>%
   summarise(total_significant_strikes = sum(significant_strikes_landed)) %>%
@@ -43,3 +44,10 @@ ufc_stats %>% group_by(fighter) %>%
 #> 5 Michael Bisping                         1567
 #> 6 Rafael Dos Anjos                        1493
 ```
+
+## Updating with latest fights
+
+The package contains a single function `refresh_data()` that updates the
+dataset contained within the package. Running `data("ufc_stats")`
+subsequently, the latest version of the data.frame is loaded into
+memory.

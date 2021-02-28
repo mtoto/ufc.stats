@@ -10,5 +10,5 @@ refresh_data()
 The latest version of ufc_stats data.frame.
 }
 \description{
-Retrieve the latest ufc_stats data.frame from GitHub. This function will also automatically overwrite the current rda contained in the package.
+This function updates the rda file contained in the package folder data/ufc_stats.rda.
 }
