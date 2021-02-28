@@ -1,6 +1,6 @@
 Package: ufc.stats
 Title: The latest ufc statistics convenietly packaged as a tidy data.frame.
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Tamas",
            family = "Szilagyi",

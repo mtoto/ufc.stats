@@ -6,9 +6,6 @@
 \usage{
 refresh_data()
 }
-\value{
-The latest version of ufc_stats data.frame.
-}
 \description{
 This function updates the rda file contained in the package folder data/ufc_stats.rda.
 }
