@@ -13,7 +13,8 @@ LazyData: true
 URL: http://tamaszilagyi.com/ufc.stats/, https://github.com/mtoto/ufc.stats
 BugReports: https://github.com/mtoto/ufc.stats/issues
 Imports: 
-    dplyr
+    dplyr,
+    usethis
 Suggests: 
     testthat,
     knitr,

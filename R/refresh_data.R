@@ -10,7 +10,5 @@
 
 refresh_data <- function() {
   load(url("https://s3-us-west-1.amazonaws.com/ufc.stats/final/ufc_stats.rda"))
-  save(ufc_stats, file="data/ufc_stats.rda")
+  usethis::use_data(ufc_stats, overwrite=TRUE)
 }
-
-
