@@ -28,7 +28,6 @@ Who has the most significant strikes landed in UFC history?
 
 ``` r
 library(dplyr)
-#> Warning: package 'dplyr' was built under R version 3.6.2
 
 ufc_stats %>% group_by(fighter) %>%
   summarise(total_significant_strikes = sum(significant_strikes_landed)) %>%
