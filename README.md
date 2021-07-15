@@ -41,7 +41,7 @@ ufc_stats %>% group_by(fighter) %>%
 #> 3 Joanna Jedrzejczyk                      1711
 #> 4 Frankie Edgar                           1705
 #> 5 Michael Bisping                         1567
-#> 6 Rafael Dos Anjos                        1493
+#> 6 Dustin Poirier                          1527
 ```
 
 ## Updating with latest fights
