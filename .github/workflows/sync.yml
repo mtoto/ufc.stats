@@ -61,6 +61,6 @@ jobs:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit results
         run: |
-          git diff --quiet && git diff --staged --quiet || git commit -am "Re-build README.Rmd & update datasets"
+          git pull && git diff --quiet && git diff --staged --quiet || git commit -am "Re-build README.Rmd & update datasets"
           git push https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/${{github.repository}}.git HEAD:master
 
