@@ -33,15 +33,15 @@ ufc_stats %>% group_by(fighter) %>%
   summarise(total_significant_strikes = sum(significant_strikes_landed)) %>%
   arrange(-total_significant_strikes) %>%
   head()
-#> # A tibble: 6 x 2
+#> # A tibble: 6 × 2
 #>   fighter            total_significant_strikes
 #>   <chr>                                  <int>
 #> 1 Max Holloway                            2618
-#> 2 Joanna Jedrzejczyk                      1711
-#> 3 Donald Cerrone                          1710
+#> 2 Donald Cerrone                          1727
+#> 3 Joanna Jedrzejczyk                      1711
 #> 4 Frankie Edgar                           1705
 #> 5 Michael Bisping                         1567
-#> 6 Rafael Dos Anjos                        1493
+#> 6 Dustin Poirier                          1527
 ```
 
 ## Updating with latest fights
