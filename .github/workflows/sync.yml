@@ -11,6 +11,8 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - name: Install R packages
         run: Rscript -e 'install.packages(c("devtools","aws.s3","usethis"))'
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: Run tests on data on s3
         run: Rscript -e 'install.packages(c("devtools","aws.s3","usethis"))' -e 'b <- Sys.getenv("BUCKET")' \
                      -e 'aws.s3::s3load(bucket = b, object = "ufc_stats.rda")' \
@@ -19,6 +21,7 @@ jobs:
           ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
   sync-data:
     needs: test-data
@@ -36,6 +39,7 @@ jobs:
         SOURCE_DIR: ${{ secrets.SOURCE_DIR }}
         GITHUB_ACTOR: ${{ github.actor }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REPO: ${{ github.repository }}
         DEST_DIR: 'data'
         DEST_FILE: 'ufc_stats.rda'
@@ -48,8 +52,12 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown
         run: Rscript -e 'install.packages(c("rmarkdown","devtools"))'
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit results
         run: |
           git diff --quiet && git diff --staged --quiet || git commit -am "Re-build README.Rmd & update datasets"
