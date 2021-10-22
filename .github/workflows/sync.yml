@@ -1,8 +1,7 @@
 name: daily-sync
 
 on:
-  schedule:
-    - cron:  '0 19 * * FRI'
+  workflow_dispatch
 
 jobs:
 
