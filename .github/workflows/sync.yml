@@ -1,6 +1,8 @@
+name: daily-sync
+
 on:
   schedule:
-    - cron:  '0 12 * * *'
+    - cron:  '0 19 * * FRI'
 
 jobs:
 
