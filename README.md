@@ -37,11 +37,11 @@ ufc_stats %>% group_by(fighter) %>%
 #>   fighter            total_significant_strikes
 #>   <chr>                                  <int>
 #> 1 Max Holloway                            2975
-#> 2 Frankie Edgar                           1799
+#> 2 Frankie Edgar                           1801
 #> 3 Joanna Jedrzejczyk                      1754
 #> 4 Donald Cerrone                          1748
 #> 5 Rafael Dos Anjos                        1696
-#> 6 Dustin Poirier                          1585
+#> 6 Dustin Poirier                          1623
 ```
 
 ## Updating with latest fights
