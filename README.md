@@ -38,10 +38,10 @@ ufc_stats %>% group_by(fighter) %>%
 #>   <chr>                                  <int>
 #> 1 Max Holloway                            2975
 #> 2 Frankie Edgar                           1801
-#> 3 Joanna Jedrzejczyk                      1754
-#> 4 Donald Cerrone                          1748
-#> 5 Rafael Dos Anjos                        1696
-#> 6 Dustin Poirier                          1623
+#> 3 Angela Hill                             1754
+#> 4 Joanna Jedrzejczyk                      1754
+#> 5 Donald Cerrone                          1748
+#> 6 Rafael Dos Anjos                        1716
 ```
 
 ## Updating with latest fights
