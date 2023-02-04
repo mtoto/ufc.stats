@@ -9,6 +9,6 @@
 
 
 refresh_data <- function() {
-  load(url("https://s3-us-west-1.amazonaws.com/ufc.stats/final/ufc_stats.rda"))
+  ufc_stats<-load(url("https://github.com/mtoto/ufc.stats/blob/master/data/ufc_stats.rda?raw=true"))
   usethis::use_data(ufc_stats, overwrite=TRUE)
 }
