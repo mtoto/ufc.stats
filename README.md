@@ -36,7 +36,7 @@ ufc_stats %>% group_by(fighter) %>%
 #> # A tibble: 6 × 2
 #>   fighter            total_significant_strikes
 #>   <chr>                                  <int>
-#> 1 Max Holloway                            2975
+#> 1 Max Holloway                            3122
 #> 2 Frankie Edgar                           1801
 #> 3 Angela Hill                             1754
 #> 4 Joanna Jedrzejczyk                      1754
