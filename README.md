@@ -34,14 +34,14 @@ ufc_stats %>% group_by(fighter) %>%
   arrange(-total_significant_strikes) %>%
   head()
 #> # A tibble: 6 × 2
-#>   fighter            total_significant_strikes
-#>   <chr>                                  <int>
-#> 1 Max Holloway                            3197
-#> 2 Angela Hill                             1896
-#> 3 Sean Strickland                         1887
-#> 4 Rafael Dos Anjos                        1818
-#> 5 Frankie Edgar                           1801
-#> 6 Joanna Jedrzejczyk                      1754
+#>   fighter          total_significant_strikes
+#>   <chr>                                <int>
+#> 1 Max Holloway                          3378
+#> 2 Angela Hill                           1896
+#> 3 Sean Strickland                       1887
+#> 4 Bobby Green                           1854
+#> 5 Rafael Dos Anjos                      1818
+#> 6 Frankie Edgar                         1801
 ```
 
 ## Updating with latest fights
