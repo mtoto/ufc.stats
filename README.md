@@ -37,8 +37,8 @@ ufc_stats %>% group_by(fighter) %>%
 #>   fighter          total_significant_strikes
 #>   <chr>                                <int>
 #> 1 Max Holloway                          3378
-#> 2 Angela Hill                           1896
-#> 3 Sean Strickland                       1887
+#> 2 Sean Strickland                       2069
+#> 3 Angela Hill                           1924
 #> 4 Bobby Green                           1854
 #> 5 Rafael Dos Anjos                      1818
 #> 6 Frankie Edgar                         1801
