@@ -38,7 +38,7 @@ ufc_stats %>% group_by(fighter) %>%
 #>   <chr>                                <int>
 #> 1 Max Holloway                          3378
 #> 2 Sean Strickland                       2069
-#> 3 Angela Hill                           1924
+#> 3 Angela Hill                           2036
 #> 4 Bobby Green                           1854
 #> 5 Rafael Dos Anjos                      1818
 #> 6 Frankie Edgar                         1801
