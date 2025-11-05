@@ -34,14 +34,14 @@ ufc_stats %>% group_by(fighter) %>%
   arrange(-total_significant_strikes) %>%
   head()
 #> # A tibble: 6 × 2
-#>   fighter          total_significant_strikes
-#>   <chr>                                <int>
-#> 1 Max Holloway                          3457
-#> 2 Sean Strickland                       2197
-#> 3 Angela Hill                           2122
-#> 4 Bobby Green                           1854
-#> 5 Rafael Dos Anjos                      1822
-#> 6 Frankie Edgar                         1801
+#>   fighter         total_significant_strikes
+#>   <chr>                               <int>
+#> 1 Max Holloway                         3655
+#> 2 Sean Strickland                      2197
+#> 3 Angela Hill                          2186
+#> 4 Dustin Poirier                       1861
+#> 5 Bobby Green                          1854
+#> 6 Jessica Andrade                      1824
 ```
 
 ## Updating with latest fights
